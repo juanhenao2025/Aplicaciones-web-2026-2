@@ -1,3 +1,4 @@
+import os
 from contextlib import asynccontextmanager
 
 import uvicorn
@@ -32,12 +33,17 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+frontend_url = os.getenv("FRONTEND_URL", "").strip().rstrip("/")
+allowed_origins = [
+    "http://localhost:4200",
+    "http://127.0.0.1:4200",
+]
+if frontend_url:
+    allowed_origins.append(frontend_url)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:4200",
-        "http://127.0.0.1:4200",
-    ],
+    allow_origins=allowed_origins,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -59,4 +65,8 @@ app.include_router(product_router)
 app.include_router(productos_router)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.2", port=8000)
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=int(os.getenv("PORT", "8000")),
+    )

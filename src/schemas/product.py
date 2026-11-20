@@ -13,7 +13,7 @@ class ProductCreate(BaseModel):
     stock: int = Field(ge=0)
     available: bool = Field(default=True)
     image_url: str | None = Field(default=None, max_length=300)
-    brand: str | None = Field(default=None, max_length=80)
+    brand: str | None = Field(default=None, max_length=50)
 
 
 class ProductUpdate(BaseModel):
@@ -25,8 +25,7 @@ class ProductUpdate(BaseModel):
     stock: int = Field(ge=0)
     available: bool = Field(default=True)
     image_url: str | None = Field(default=None, max_length=300)
-    brand: str | None = Field(default=None, max_length=80)
-
+    brand: str | None = Field(default=None, max_length=50)
 
 
 class ProductRead(BaseModel):
@@ -40,7 +39,5 @@ class ProductRead(BaseModel):
     available: bool
     image_url: str | None
     brand: str | None
-
-
 
     model_config = {"from_attributes": True}

@@ -18,4 +18,4 @@ class Product(Base):
     stock: Mapped[int] = mapped_column()
     available: Mapped[bool] = mapped_column()
     image_url: Mapped[str | None] = mapped_column(String(300), nullable=True)
-    brand: Mapped[str] = mapped_column(String(50), nullable=True)
+    brand: Mapped[str | None] = mapped_column(String(50), nullable=True)
